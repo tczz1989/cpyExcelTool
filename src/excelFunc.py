@@ -1,6 +1,6 @@
 import xlrd
 import xlwt
-from datetime import date, datetime
+# from datetime import date, datetime
 
 
 def is_number(s):
@@ -16,8 +16,8 @@ def open_excel(filename):
     # 打开文件
     workbook = xlrd.open_workbook(r'../input/'+filename)
     # 获取所有sheet
-    print(workbook.sheet_names())  # [u'sheet1', u'sheet2']
-    sheet2_name = workbook.sheet_names()[1]
+    # print(workbook.sheet_names())  # [u'sheet1', u'sheet2']
+    # sheet2_name = workbook.sheet_names()[1]
     return workbook
 
 
@@ -74,9 +74,9 @@ def read_excel(sheet, rows, cols):
 
 
 def write_excel(output_filename, input_data, output_rows, output_cols, *sheet):
+    # # 创建一个workbook 设置编码
+    workbook = xlwt.Workbook(encoding='utf-8')
     if sheet is None or sheet is () or sheet is [] or sheet is "":
-        # # 创建一个workbook 设置编码
-        workbook = xlwt.Workbook(encoding='utf-8')
         # 创建一个worksheet
         sheet = workbook.add_sheet('Sheet1')
     # 写入excel
