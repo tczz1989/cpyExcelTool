@@ -33,7 +33,7 @@ def open_sheet(workbook, *sheet_index):
         else:
             sheet = workbook.sheet_by_name(sheet_index)
     # sheet的名称，行数，列数
-    print(sheet.name, sheet.nrows, sheet.ncols)
+    # print(sheet.name, sheet.nrows, sheet.ncols)
     return sheet
 
 
@@ -77,41 +77,37 @@ def read_excel(sheet, rows, cols):
 
 def write_excel_xls(output_filename, input_data, output_rows, output_cols, *sheet):
     # # 创建一个workbook 设置编码
-    workbook = xlwt.Workbook(encoding='ascii')
+    workbook = xlwt.Workbook(encoding='UTF-8')
     if sheet is None or sheet is () or sheet is [] or sheet is "":
         # 创建一个worksheet
         sheet = workbook.add_sheet('Sheet1')
     # 写入excel
-    try:
-        index = 0
-        for i, row in enumerate(output_rows):
-            for col in output_cols:
-                if len(row) is 1 and len(col) is 1:
-                    # 参数对应 行, 列, 值
-                    sheet.write(row, col, label=input_data[index])
-                    index += 1
-                    # 保存
-                elif len(row) is 2 and len(col) is 2:
-                    for r in range(row[0], row[1]+1):
-                        for c in range(col[0], col[1]+1):
-                            sheet.write(r, c, label=input_data[index])
-                            index += 1
-                elif len(row) is 2 and len(col) is 1:
-                    for r in range(row[0], row[1]+1):
-                        sheet.write(r, col[0], label=input_data[index])
-                        index += 1
-                elif len(row) is 1 and len(col) is 2:
+    index = 0
+    for i, row in enumerate(output_rows):
+        for col in output_cols:
+            if len(row) is 1 and len(col) is 1:
+                # 参数对应 行, 列, 值
+                sheet.write(row, col, label=input_data[index])
+                index += 1
+                # 保存
+            elif len(row) is 2 and len(col) is 2:
+                for r in range(row[0], row[1]+1):
                     for c in range(col[0], col[1]+1):
-                        sheet.write(row[0], c, label=input_data[index])
+                        sheet.write(r, c, label=input_data[index])
                         index += 1
-                else:
-                    print("row col input error!")
-                    return
-            workbook.save('../output/'+output_filename)
-    # except PermissionError:
-    #     print("请关闭写入的目标文件！")
-    except Exception as e:
-        print(str(e))
+            elif len(row) is 2 and len(col) is 1:
+                for r in range(row[0], row[1]+1):
+                    sheet.write(r, col[0], label=input_data[index])
+                    index += 1
+            elif len(row) is 1 and len(col) is 2:
+                for c in range(col[0], col[1]+1):
+                    sheet.write(row[0], c, label=input_data[index])
+                    index += 1
+            else:
+                print("row col input error!")
+                return
+    workbook.save('../output/'+output_filename)
+
     return
 
 
@@ -133,36 +129,33 @@ def write_excel_xlsx(output_filename, input_data, output_rows, output_cols, shee
     else:
         sheet = workbook.create_sheet(sheet_name)
     # 写入excel
-    try:
-        index = 0
-        for i, row in enumerate(output_rows):
-            for col in output_cols:
-                if len(row) is 1 and len(col) is 1:
-                    # 参数对应 行, 列, 值
-                    sheet.cell(row+1, col+1, label=input_data[index])
-                    index += 1
-                    # 保存
-                elif len(row) is 2 and len(col) is 2:
-                    for r in range(row[0], row[1]+1):
-                        for c in range(col[0], col[1]+1):
-                            sheet.cell(r+1, c+1, input_data[index])
-                            index += 1
-                elif len(row) is 2 and len(col) is 1:
-                    for r in range(row[0], row[1]+1):
-                        sheet.cell(r+1, col[0]+1, input_data[index])
-                        index += 1
-                elif len(row) is 1 and len(col) is 2:
+    index = 0
+    for i, row in enumerate(output_rows):
+        for col in output_cols:
+            if len(row) is 1 and len(col) is 1:
+                # 参数对应 行, 列, 值
+                sheet.cell(row+1, col+1, label=input_data[index])
+                index += 1
+                # 保存
+            elif len(row) is 2 and len(col) is 2:
+                for r in range(row[0], row[1]+1):
                     for c in range(col[0], col[1]+1):
-                        sheet.cell(row[0]+1, c+1, input_data[index])
+                        sheet.cell(r+1, c+1, input_data[index])
                         index += 1
-                else:
-                    print("row col input error!")
-                    return
-            workbook.save('../output/'+output_filename)
+            elif len(row) is 2 and len(col) is 1:
+                for r in range(row[0], row[1]+1):
+                    sheet.cell(r+1, col[0]+1, input_data[index])
+                    index += 1
+            elif len(row) is 1 and len(col) is 2:
+                for c in range(col[0], col[1]+1):
+                    sheet.cell(row[0]+1, c+1, input_data[index])
+                    index += 1
+            else:
+                print("row col input error!")
+                return
+    workbook.save('../output/'+output_filename)
     # except PermissionError:
     #     print("请关闭写入的目标文件！")
-    except Exception as e:
-        print(str(e))
     return
 
 
@@ -175,7 +168,7 @@ def get_col_name(input_str):
         for col in col_range_str:
             col_range_num.append(ord(col.lower().strip())-97)
         col_ranges.append(col_range_num)
-    print(col_ranges)
+    # print(col_ranges)
     return col_ranges
 
 
@@ -188,7 +181,7 @@ def get_row_name(input_str):
         for row in row_range_str:
             row_range_num.append(int(row.strip())-1)
         row_ranges.append(row_range_num)
-    print(row_ranges)
+    # print(row_ranges)
     return row_ranges
 
 
@@ -218,11 +211,11 @@ def cpy_excel_main(input_config, output_config):
     cols = get_col_name(input_config[3][1])
     rows1 = get_row_name(output_config[2][1])
     cols1 = get_col_name(output_config[3][1])
-    print(rows, cols, rows1, cols1)
+    # print(rows, cols, rows1, cols1)
     if input_output_match(rows, cols, rows1, cols1):
-        print("config is correct")
+        print("\nconfig setting is correct\n")
         data = read_excel(sheet, rows, cols)
         write_excel_xlsx(output_config[0][1], data, rows, cols, output_config[1][1])
     else:
-        print("input output config not match")
+        print("\ninput output config not match\n")
 
