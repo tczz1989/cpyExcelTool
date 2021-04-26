@@ -213,9 +213,9 @@ def cpy_excel_main(input_config, output_config):
     cols1 = get_col_name(output_config[3][1])
     # print(rows, cols, rows1, cols1)
     if input_output_match(rows, cols, rows1, cols1):
-        print("\nconfig setting is correct\n")
+        print("config setting is correct\n")
         data = read_excel(sheet, rows, cols)
         write_excel_xlsx(output_config[0][1], data, rows, cols, output_config[1][1])
     else:
-        print("\ninput output config not match\n")
+        print("input output config not match\n")
 

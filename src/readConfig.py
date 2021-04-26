@@ -27,3 +27,29 @@ def get_input_filenames():
 def get_output_filenames():
     files = os.listdir("../output/")
     return files
+
+
+def config_is_xlsx(config):
+    file_format = os.path.splitext(config[0][1])[-1].lower()
+    if file_format == '.xlsx':
+        return True
+    elif file_format == '':
+        config[0] = ('filename', config[0][1] + '.xlsx')
+        return True
+    elif file_format == '.':
+        config[0] = ('filename', config[0][1] + 'xlsx')
+        return True
+    else:
+        return False
+
+
+def get_config():
+    input_config = get_input_config()
+    output_config = get_output_config()
+    # print(input_config, output_config)
+    get_input_filenames()
+    if config_is_xlsx(input_config) and config_is_xlsx(output_config):
+        pass
+    else:
+        raise Exception("config input or output file name error!\n")
+    return input_config, output_config

@@ -5,10 +5,7 @@ import sys
 
 if __name__ == '__main__':
     try:
-        input_config = r.get_input_config()
-        output_config = r.get_output_config()
-        # print(input_config, output_config)
-        r.get_input_filenames()
+        input_config, output_config = r.get_config()
         files = r.get_output_filenames()
         if output_config[0][1] not in files:
             e.create_excel_xlsx(output_config)
