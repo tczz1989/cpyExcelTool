@@ -1,7 +1,7 @@
 import xlrd
 import xlwt
 from openpyxl import load_workbook
-# from openpyxl import Workbook
+from openpyxl import Workbook
 # from datetime import date, datetime
 
 
@@ -113,6 +113,15 @@ def write_excel_xls(output_filename, input_data, output_rows, output_cols, *shee
     except Exception as e:
         print(str(e))
     return
+
+
+def create_excel_xlsx(output_config):
+    workbook = Workbook()
+    sheet_name = workbook.get_sheet_names()
+    workbook.create_sheet(output_config[1][1])
+    worksheet = workbook.get_sheet_by_name(sheet_name[0])
+    workbook.remove(worksheet)
+    workbook.save("../output/" + output_config[0][1])
 
 
 def write_excel_xlsx(output_filename, input_data, output_rows, output_cols, sheet_name):

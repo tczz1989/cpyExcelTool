@@ -22,3 +22,8 @@ def get_input_filenames():
     # for file in files:
     #     print(file)
     return files
+
+
+def get_output_filenames():
+    files = os.listdir("../output/")
+    return files
