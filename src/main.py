@@ -16,6 +16,6 @@ if __name__ == '__main__':
         print("对excel的操作成功!\n")
         sys.exit(0)
     except Exception as e:
-        print(e.args[1])
+        print(e)
         print("对excel的操作失败，出现错误！！！！\n")
         sys.exit(-1)
