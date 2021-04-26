@@ -217,5 +217,5 @@ def cpy_excel_main(input_config, output_config):
         data = read_excel(sheet, rows, cols)
         write_excel_xlsx(output_config[0][1], data, rows, cols, output_config[1][1])
     else:
-        print("input output config not match\n")
+        raise Exception("input output config not match\n")
 
